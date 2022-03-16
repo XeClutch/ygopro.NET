@@ -51,7 +51,4 @@ if (cards != null)
 {
     var card = cards.FirstOrDefault(x => x.Name == "Dark Magician");
 }
-
-
-
 ```
