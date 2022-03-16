@@ -3,12 +3,45 @@ using YGOPRO.Models;
 
 namespace YGOPRO;
 
+public enum Language
+{
+    English,
+    French,
+    German,
+    Italian,
+    Portuguese
+}
+
+public class ClientBuilder
+{
+    private YGOClient _client = new YGOClient();
+
+    public static ClientBuilder Init() => new();
+    public YGOClient Finish() => _client;
+
+    public ClientBuilder WithLanguage(Language language)
+    {
+        _client._language = language switch
+        {
+            Language.English => string.Empty,
+            Language.French => "fr",
+            Language.German => "de",
+            Language.Italian => "it",
+            Language.Portuguese => "pt",
+            _ => string.Empty
+        };
+
+        return this;
+    }
+
+}
 /// <summary>
 /// Represents a YGOPRO API Client
 /// </summary>
 public class YGOClient
 {
     private HttpClient _client;
+    internal string? _language { set; get; }
 
     public YGOClient() => _client =
         new HttpClient();
@@ -20,8 +53,11 @@ public class YGOClient
 
     private async Task<T?> RestGET<T>(string? url = null) where T : class
     {
-        
-        var baseurl = url != null ? $"https://db.ygoprodeck.com/api/v7/cardinfo.php?{url}" : "https://db.ygoprodeck.com/api/v7/cardinfo.php";
+        var baseurl = string.IsNullOrEmpty(_language)
+            ? "https://db.ygoprodeck.com/api/v7/cardinfo.php?"
+            : $"https://db.ygoprodeck.com/api/v7/cardinfo.php?language={_language}";
+
+        baseurl = url != null ? $"{baseurl}&{url}" : baseurl;
         var result = await _client.GetAsync(baseurl);
         if (!result.IsSuccessStatusCode) 
             return default;
@@ -40,9 +76,25 @@ public class YGOClient
     public async Task<Card?> GetCardByNameAsync(string name)
     {
         var result = await RestGET<Cards>($"name={name}");
-
-        var card = result?.data[0];
-        return card;
-
+        return result?.data[0];
     }
+    public async Task<List<Card>?> GetCardsByNameAsync(string[] names)
+    {
+        var url = names.Length == 1 ? $"name={names[0]}" : $"name={string.Join('|', names)}";
+        var result = await RestGET<Cards>(url);
+
+        return result?.data;
+    }
+
+    public async Task<List<Card>?> FuzzySearchByNameAsync(string name)
+    {
+        var result = await RestGET<Cards>($"fname={name}");
+        return result?.data;
+    }
+    
+    public async Task<Card?> GetCardByIdAsync(int id)
+        {
+            var result = await RestGET<Cards>($"id={id}");
+            return result?.data[0];
+        }
 }

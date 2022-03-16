@@ -19,12 +19,19 @@ NuGet will come soon
 ```c#
 using YGOPRO;
 
-var client = new YGOClient();
+var client = ClientBuilder.Init().Finish(); // Defaults to english
+
+// If you want to create a client with a different language:
+// YGOPRODECK only accepts German, French, Italian, and Portuguese
+var client = ClientBuilder.Init().WithLanguage(Language.German).Finish();
+
+// Different languages accept only names in the corresponding language
+// For Example you can make the language French and input: "Dark Magician"
 ```
 
 ### Get all cards
 ```c#
-var cards = await GetAllCardsAsync();
+var cards = await client.GetAllCardsAsync();
 
 // Get Dark Magician
 
@@ -39,13 +46,13 @@ if (cards != null)
 
 ### Get specific card by name
 ```c#
-var card = await GetCardByNameAsync("Dark Magician");
+var card = await client.GetCardByNameAsync("Dark Magician");
 
 Console.WriteLine($"Name: {card?.Name}");    
 Console.WriteLine($"Attack: {card?.Attack}, Defense: {card?.Defense}"); 
 
 // The equivalent of this but client side
-var cards = await GetAllCardsAsync();
+var cards = await client.GetAllCardsAsync();
 
 if (cards != null)
 {
