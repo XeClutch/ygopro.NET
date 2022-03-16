@@ -41,6 +41,12 @@ public class Card
    
    [JsonProperty("card_sets")]
    public List<CardSet> CardSets { get; set; }
+   
+   [JsonProperty("card_images")]
+   public List<CardImage> CardImages { get; set; }
+   
+   [JsonProperty("card_prices")]
+   public List<CardPrice> CardPrices { get; set; }
 }
 
 public class CardSet
@@ -59,4 +65,34 @@ public class CardSet
     
     [JsonProperty("set_price")]
     public string SetPrice { get; set; }
+}
+
+public class CardImage
+{
+    [JsonProperty("id")]
+    public int Id { get; set; }
+    
+    [JsonProperty("image_url")]
+    public string ImageUrl { get; set; }
+    
+    [JsonProperty("image_url_small")]
+    public string ImageUrlSmall { get; set; }
+}
+
+public class CardPrice
+{
+    [JsonProperty("cardmarket_price")]
+    public string CardmarketPrice { get; set; }
+    
+    [JsonProperty("tcgplayer_price")]
+    public string TCGplayerPrice { get; set; }
+    
+    [JsonProperty("ebay_price")]
+    public string EbayPrice { get; set; }
+    
+    [JsonProperty("amazon_price")]
+    public string AmazongPrice { get; set; }
+    
+    [JsonProperty("coolstuffinc_price")]
+    public string CoolStuffIncPrice { get; set; }
 }
