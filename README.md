@@ -7,9 +7,9 @@ YGOPRO.NET is an API Wrapper for the [YGOPRODECK API](https://db.ygoprodeck.com/
 1. `git clone https://github.com/MordechaiHadad/ygopro.NET.git` in your root directory
 2. add this line to your App.csproj
 ```c#
-    <ItemGroup>
-      <ProjectReference Include="..\YGOPRO\YGOPRO.csproj" />
-    </ItemGroup>
+<ItemGroup>
+    <ProjectReference Include="..\YGOPRO\YGOPRO.csproj" />
+</ItemGroup>
 ```
 
 NuGet will come soon
