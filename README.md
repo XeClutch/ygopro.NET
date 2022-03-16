@@ -26,7 +26,7 @@ var client = ClientBuilder.Init().Finish(); // Defaults to english
 var client = ClientBuilder.Init().WithLanguage(Language.German).Finish();
 
 // Different languages accept only names in the corresponding language
-// For Example you can make the language French and input: "Dark Magician"
+// For Example you can't make the language French and input: "Dark Magician"
 ```
 
 ### Get all cards
