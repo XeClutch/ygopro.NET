@@ -12,16 +12,17 @@ public enum Language
     Portuguese
 }
 
-public class ClientBuilder
+/// <summary>
+/// Represents a YGOPRO API Client
+/// </summary>
+public class YGOClient
 {
-    private YGOClient _client = new YGOClient();
+    private readonly HttpClient _client;
+    private readonly string? _language;
 
-    public static ClientBuilder Init() => new();
-    public YGOClient Finish() => _client;
-
-    public ClientBuilder WithLanguage(Language language)
-    {
-        _client._language = language switch
+    public YGOClient(Language language = Language.English)
+    { 
+        _language = language switch
         {
             Language.English => string.Empty,
             Language.French => "fr",
@@ -30,21 +31,8 @@ public class ClientBuilder
             Language.Portuguese => "pt",
             _ => string.Empty
         };
-
-        return this;
+        _client = new HttpClient();   
     }
-
-}
-/// <summary>
-/// Represents a YGOPRO API Client
-/// </summary>
-public class YGOClient
-{
-    private HttpClient _client;
-    internal string? _language { set; get; }
-
-    public YGOClient() => _client =
-        new HttpClient();
 
     ~YGOClient()
     {
