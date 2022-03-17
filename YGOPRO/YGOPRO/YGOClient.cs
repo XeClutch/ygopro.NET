@@ -102,9 +102,35 @@ public class YGOClient
             Type.TrapCard => "Trap Card",
             Type.TunerMonster => "Tuner Monster",
             Type.UnionEffectMonster => "Union Effect Monster",
+            Type.FusionMonster => "Fusion Monster",
+            Type.LinkMonster => "Link Monster",
+            Type.PendulumEffectFusionMonster => "Pendulum Effect Fusion Monster",
+            Type.SynchroMonster => "Synchro Monster",
+            Type.SynchroPendulumEffectMonster => "Synchro Pendulum Effect Monster",
+            Type.SynchroTunerMonster => "Synchro Tuner Monster",
+            Type.XYZMonster => "XYZ Monster",
+            Type.XYZPendulumEffectMonster => "XYZ Pendulum Effect Monster"
         };
 
         var result = await RestGET<Cards>($"type={stringType}");
         return result?.data;
     }
+
+    public async Task<List<Card?>> GetCardsByAttackAsync(int attack)
+    {
+        var result = await RestGET<Cards>($"atk={attack}");
+        return result?.data;
+    }
+    
+    public async Task<List<Card?>> GetCardsByDefenseAsync(int defense)
+    {
+        var result = await RestGET<Cards>($"def={defense}");
+        return result?.data;
+    }
+    
+    public async Task<List<Card?>> GetCardsByLevelAsync(int level)
+    {
+        var result = await RestGET<Cards>($"level={level}");
+        return result?.data;
+    } 
 }
