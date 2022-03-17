@@ -1,16 +1,9 @@
 ﻿using Newtonsoft.Json;
+using YGOPRO.Enums;
 using YGOPRO.Models;
+using Type = YGOPRO.Enums.Type;
 
 namespace YGOPRO;
-
-public enum Language
-{
-    English,
-    French,
-    German,
-    Italian,
-    Portuguese
-}
 
 /// <summary>
 /// Represents a YGOPRO API Client
@@ -81,8 +74,37 @@ public class YGOClient
     }
     
     public async Task<Card?> GetCardByIdAsync(int id)
+    { 
+        var result = await RestGET<Cards>($"id={id}");
+        return result?.data[0];
+    }
+
+    public async Task<List<Card?>> GetCardsByTypeAsync(Type type)
+    {
+        var stringType = type switch
         {
-            var result = await RestGET<Cards>($"id={id}");
-            return result?.data[0];
-        }
+            Type.EffectMonster => "Effect Monster",
+            Type.FlipEffectMonster => "Flip Effect Monster",
+            Type.FlipTunerEffectMonster => "Flip Tuner Effect Monster",
+            Type.GeminiMonster => "Gemini Monster",
+            Type.NormalMonster => "Normal Monster",
+            Type.NormalTunerMonster => "Normal Tuner Monster",
+            Type.PendulumEffectMonster => "Pendulum Effect Monster",
+            Type.PendulumFlipEffectMonster => "Pendulum Flip Effect Monster",
+            Type.PendulumNormalMonster => "Pendulum Normal Monster",
+            Type.PendulumTunerEffectMonster => "Pendulum Tuner Effect Monster",
+            Type.RitualEffectMonster => "Ritual Effect Monster",
+            Type.RitualMonster => "Ritual Monster",
+            Type.SkillCard => "Skill Card",
+            Type.SpellCard => "Spell Card",
+            Type.SpiritMonster => "Spirit Monster",
+            Type.ToonMonster => "Toon Monster",
+            Type.TrapCard => "Trap Card",
+            Type.TunerMonster => "Tuner Monster",
+            Type.UnionEffectMonster => "Union Effect Monster",
+        };
+
+        var result = await RestGET<Cards>($"type={stringType}");
+        return result?.data;
+    }
 }

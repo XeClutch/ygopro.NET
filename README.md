@@ -23,7 +23,7 @@ var client = new YGOClient();
 
 // If you want to create a client with a different language:
 // YGOPRODECK only accepts German, French, Italian, and Portuguese
-var client = YGOClient(Language.German);
+var client = new YGOClient(Language.German);
 
 // Different languages accept only names in the corresponding language
 // For Example you can't make the language French and input: "Dark Magician"
