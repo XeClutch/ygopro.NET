@@ -79,7 +79,7 @@ public class YGOClient
         return result?.data[0];
     }
 
-    public async Task<List<Card?>> GetCardsByTypeAsync(Type type)
+    public async Task<List<Card>?> GetCardsByTypeAsync(Type type)
     {
         var stringType = type switch
         {
@@ -116,19 +116,19 @@ public class YGOClient
         return result?.data;
     }
 
-    public async Task<List<Card?>> GetCardsByAttackAsync(int attack)
+    public async Task<List<Card>?> GetCardsByAttackAsync(int attack)
     {
         var result = await RestGET<Cards>($"atk={attack}");
         return result?.data;
     }
     
-    public async Task<List<Card?>> GetCardsByDefenseAsync(int defense)
+    public async Task<List<Card>?> GetCardsByDefenseAsync(int defense)
     {
         var result = await RestGET<Cards>($"def={defense}");
         return result?.data;
     }
     
-    public async Task<List<Card?>> GetCardsByLevelAsync(int level)
+    public async Task<List<Card>?> GetCardsByLevelAsync(int level)
     {
         var result = await RestGET<Cards>($"level={level}");
         return result?.data;
