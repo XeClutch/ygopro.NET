@@ -25,13 +25,13 @@ public class Card
 
     [JsonProperty("level")] public int Level { get; private set; }
 
-    [JsonProperty("race")] public string Race { get; private set; }
+    [JsonProperty("race")] public Race Race { get; private set; }
 
-    [JsonProperty("attribute")] public string Attribute { get; private set; }
+    [JsonProperty("attribute")] public CardAttribute? Attribute { get; private set; }
 
-    [JsonProperty("archetype")] public string Archetype { get; private set; }
+    [JsonProperty("archetype")] public CardArchetype? Archetype { get; private set; }
 
-    [JsonProperty("card_sets")] public List<CardSet> CardSets { get; private set; }
+    [JsonProperty("card_sets")] public List<CardSet>? CardSets { get; private set; }
 
     [JsonProperty("card_images")] public List<CardImage> CardImages { get; private set; }
 
@@ -44,7 +44,7 @@ public class CardSet
 
     [JsonProperty("set_code")] public string SetCode { get; private set; }
 
-    [JsonProperty("set_rarity")] public string SetRarity { get; private set; }
+    [JsonProperty("set_rarity")] public CardSetRarity SetRarity { get; private set; }
 
     [JsonProperty("set_rarity_code")] public string SetRarityCode { get; private set; }
 
@@ -62,13 +62,13 @@ public class CardImage
 
 public class CardPrice
 {
-    [JsonProperty("cardmarket_price")] public string CardmarketPrice { get; private set; }
+    [JsonProperty("cardmarket_price")] public double CardmarketPrice { get; private set; }
 
-    [JsonProperty("tcgplayer_price")] public string TCGplayerPrice { get; private set; }
+    [JsonProperty("tcgplayer_price")] public double TCGplayerPrice { get; private set; }
 
-    [JsonProperty("ebay_price")] public string EbayPrice { get; private set; }
+    [JsonProperty("ebay_price")] public double EbayPrice { get; private set; }
 
-    [JsonProperty("amazon_price")] public string AmazongPrice { get; private set; }
+    [JsonProperty("amazon_price")] public double AmazongPrice { get; private set; }
 
-    [JsonProperty("coolstuffinc_price")] public string CoolStuffIncPrice { get; private set; }
+    [JsonProperty("coolstuffinc_price")] public double CoolStuffIncPrice { get; private set; }
 }
