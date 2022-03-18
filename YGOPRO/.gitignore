@@ -3,9 +3,7 @@
 bin/
 obj/
 
-# Common node modules locations
-/node_modules
-/wwwroot/node_modules
+YGOPRO.sln.DotSettings.user
 
 ### Rider ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -17,6 +15,8 @@ obj/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/discord.xml
+.idea/**/git_toolbox_prj.xml
 
 # AWS User-specific
 .idea/**/aws.xml
