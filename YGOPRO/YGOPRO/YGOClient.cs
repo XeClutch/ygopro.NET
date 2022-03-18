@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using YGOPRO.Enums;
 using YGOPRO.Models;
-using Type = YGOPRO.Enums.Type;
 
 namespace YGOPRO;
 
@@ -79,37 +78,37 @@ public class YGOClient
         return result?.data[0];
     }
 
-    public async Task<List<Card>?> GetCardsByTypeAsync(Type type)
+    public async Task<List<Card>?> GetCardsByTypeAsync(CardType cardType)
     {
-        var stringType = type switch
+        var stringType = cardType switch
         {
-            Type.EffectMonster => "Effect Monster",
-            Type.FlipEffectMonster => "Flip Effect Monster",
-            Type.FlipTunerEffectMonster => "Flip Tuner Effect Monster",
-            Type.GeminiMonster => "Gemini Monster",
-            Type.NormalMonster => "Normal Monster",
-            Type.NormalTunerMonster => "Normal Tuner Monster",
-            Type.PendulumEffectMonster => "Pendulum Effect Monster",
-            Type.PendulumFlipEffectMonster => "Pendulum Flip Effect Monster",
-            Type.PendulumNormalMonster => "Pendulum Normal Monster",
-            Type.PendulumTunerEffectMonster => "Pendulum Tuner Effect Monster",
-            Type.RitualEffectMonster => "Ritual Effect Monster",
-            Type.RitualMonster => "Ritual Monster",
-            Type.SkillCard => "Skill Card",
-            Type.SpellCard => "Spell Card",
-            Type.SpiritMonster => "Spirit Monster",
-            Type.ToonMonster => "Toon Monster",
-            Type.TrapCard => "Trap Card",
-            Type.TunerMonster => "Tuner Monster",
-            Type.UnionEffectMonster => "Union Effect Monster",
-            Type.FusionMonster => "Fusion Monster",
-            Type.LinkMonster => "Link Monster",
-            Type.PendulumEffectFusionMonster => "Pendulum Effect Fusion Monster",
-            Type.SynchroMonster => "Synchro Monster",
-            Type.SynchroPendulumEffectMonster => "Synchro Pendulum Effect Monster",
-            Type.SynchroTunerMonster => "Synchro Tuner Monster",
-            Type.XYZMonster => "XYZ Monster",
-            Type.XYZPendulumEffectMonster => "XYZ Pendulum Effect Monster"
+            CardType.EffectMonster => "Effect Monster",
+            CardType.FlipEffectMonster => "Flip Effect Monster",
+            CardType.FlipTunerEffectMonster => "Flip Tuner Effect Monster",
+            CardType.GeminiMonster => "Gemini Monster",
+            CardType.NormalMonster => "Normal Monster",
+            CardType.NormalTunerMonster => "Normal Tuner Monster",
+            CardType.PendulumEffectMonster => "Pendulum Effect Monster",
+            CardType.PendulumFlipEffectMonster => "Pendulum Flip Effect Monster",
+            CardType.PendulumNormalMonster => "Pendulum Normal Monster",
+            CardType.PendulumTunerEffectMonster => "Pendulum Tuner Effect Monster",
+            CardType.RitualEffectMonster => "Ritual Effect Monster",
+            CardType.RitualMonster => "Ritual Monster",
+            CardType.SkillCard => "Skill Card",
+            CardType.SpellCard => "Spell Card",
+            CardType.SpiritMonster => "Spirit Monster",
+            CardType.ToonMonster => "Toon Monster",
+            CardType.TrapCard => "Trap Card",
+            CardType.TunerMonster => "Tuner Monster",
+            CardType.UnionEffectMonster => "Union Effect Monster",
+            CardType.FusionMonster => "Fusion Monster",
+            CardType.LinkMonster => "Link Monster",
+            CardType.PendulumEffectFusionMonster => "Pendulum Effect Fusion Monster",
+            CardType.SynchroMonster => "Synchro Monster",
+            CardType.SynchroPendulumEffectMonster => "Synchro Pendulum Effect Monster",
+            CardType.SynchroTunerMonster => "Synchro Tuner Monster",
+            CardType.XYZMonster => "XYZ Monster",
+            CardType.XYZPendulumEffectMonster => "XYZ Pendulum Effect Monster",
         };
 
         var result = await RestGET<Cards>($"type={stringType}");

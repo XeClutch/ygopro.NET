@@ -1,6 +1,6 @@
 ﻿namespace YGOPRO.Enums;
 
-public enum Type
+public enum CardType
 {
     EffectMonster,
     FlipEffectMonster,
