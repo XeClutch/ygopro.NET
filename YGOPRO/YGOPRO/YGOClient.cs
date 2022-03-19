@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using YGOPRO.Enums;
+using YGOPRO.Extensions;
 using YGOPRO.Models;
-using Type = YGOPRO.Enums.Type;
 
 namespace YGOPRO;
 
@@ -13,8 +13,12 @@ public class YGOClient
     private readonly HttpClient _client;
     private readonly string? _language;
 
+    private const string BaseUrl = "https://db.ygoprodeck.com/api";
+    private const string ApiVersion = "/v7";
+    private const string CardInfo = "/cardinfo.php";
+
     public YGOClient(Language language = Language.English)
-    { 
+    {
         _language = language switch
         {
             Language.English => string.Empty,
@@ -24,7 +28,7 @@ public class YGOClient
             Language.Portuguese => "pt",
             _ => string.Empty
         };
-        _client = new HttpClient();   
+        _client = new HttpClient();
     }
 
     ~YGOClient()
@@ -35,102 +39,76 @@ public class YGOClient
     private async Task<T?> RestGET<T>(string? url = null) where T : class
     {
         var baseurl = string.IsNullOrEmpty(_language)
-            ? "https://db.ygoprodeck.com/api/v7/cardinfo.php?"
-            : $"https://db.ygoprodeck.com/api/v7/cardinfo.php?language={_language}";
+            ? BaseUrl + ApiVersion + CardInfo + "?"
+            : $"{BaseUrl}{ApiVersion}{CardInfo}?language={_language}";
 
         baseurl = url != null ? $"{baseurl}&{url}" : baseurl;
         var result = await _client.GetAsync(baseurl);
-        if (!result.IsSuccessStatusCode) 
+        if (!result.IsSuccessStatusCode)
             return default;
         var response = await result.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<T>(response);
-
     }
 
     public async Task<List<Card>?> GetAllCardsAsync()
     {
         var result = await RestGET<Cards>();
-
-        return result?.data;
+        return result?.Data;
     }
 
-    public async Task<Card?> GetCardByNameAsync(string name)
+    public async Task<Card> GetCardByNameAsync(string name)
     {
         var result = await RestGET<Cards>($"name={name}");
-        return result?.data[0];
+        return result?.Data[0];
     }
-    public async Task<List<Card>?> GetCardsByNameAsync(string[] names)
+
+    public async Task<List<Card>?> GetCardsByNameAsync(params string[] names) =>
+        await GetCardsByNameAsync((IEnumerable<string>)names);
+
+    public async Task<List<Card>?> GetCardsByNameAsync(IEnumerable<string> names)
     {
-        var url = names.Length == 1 ? $"name={names[0]}" : $"name={string.Join('|', names)}";
+        var enumerable = names as string[] ?? names.ToArray();
+        var url = enumerable.Length == 1 ? $"name={enumerable.First()}" : $"name={string.Join('|', enumerable)}";
         var result = await RestGET<Cards>(url);
 
-        return result?.data;
+        return result?.Data;
     }
 
-    public async Task<List<Card>?> FuzzySearchByNameAsync(string name)
+    public async Task<List<Card>?> GetCardByFuzzyNameSearchAsync(string name)
     {
         var result = await RestGET<Cards>($"fname={name}");
-        return result?.data;
+        return result?.Data;
     }
-    
+
     public async Task<Card?> GetCardByIdAsync(int id)
-    { 
+    {
         var result = await RestGET<Cards>($"id={id}");
-        return result?.data[0];
+        return result?.Data?[0];
     }
 
-    public async Task<List<Card>?> GetCardsByTypeAsync(Type type)
+    public async Task<List<Card>?> GetCardsByTypeAsync(CardType cardType)
     {
-        var stringType = type switch
-        {
-            Type.EffectMonster => "Effect Monster",
-            Type.FlipEffectMonster => "Flip Effect Monster",
-            Type.FlipTunerEffectMonster => "Flip Tuner Effect Monster",
-            Type.GeminiMonster => "Gemini Monster",
-            Type.NormalMonster => "Normal Monster",
-            Type.NormalTunerMonster => "Normal Tuner Monster",
-            Type.PendulumEffectMonster => "Pendulum Effect Monster",
-            Type.PendulumFlipEffectMonster => "Pendulum Flip Effect Monster",
-            Type.PendulumNormalMonster => "Pendulum Normal Monster",
-            Type.PendulumTunerEffectMonster => "Pendulum Tuner Effect Monster",
-            Type.RitualEffectMonster => "Ritual Effect Monster",
-            Type.RitualMonster => "Ritual Monster",
-            Type.SkillCard => "Skill Card",
-            Type.SpellCard => "Spell Card",
-            Type.SpiritMonster => "Spirit Monster",
-            Type.ToonMonster => "Toon Monster",
-            Type.TrapCard => "Trap Card",
-            Type.TunerMonster => "Tuner Monster",
-            Type.UnionEffectMonster => "Union Effect Monster",
-            Type.FusionMonster => "Fusion Monster",
-            Type.LinkMonster => "Link Monster",
-            Type.PendulumEffectFusionMonster => "Pendulum Effect Fusion Monster",
-            Type.SynchroMonster => "Synchro Monster",
-            Type.SynchroPendulumEffectMonster => "Synchro Pendulum Effect Monster",
-            Type.SynchroTunerMonster => "Synchro Tuner Monster",
-            Type.XYZMonster => "XYZ Monster",
-            Type.XYZPendulumEffectMonster => "XYZ Pendulum Effect Monster"
-        };
+        var cardName = Enum.GetName(cardType)?.UnPascalCase();
 
-        var result = await RestGET<Cards>($"type={stringType}");
-        return result?.data;
+        var result = await RestGET<Cards>($"type={cardName}");
+        return result?.Data;
     }
 
     public async Task<List<Card>?> GetCardsByAttackAsync(int attack)
     {
         var result = await RestGET<Cards>($"atk={attack}");
-        return result?.data;
+        return result?.Data;
     }
-    
+
     public async Task<List<Card>?> GetCardsByDefenseAsync(int defense)
     {
         var result = await RestGET<Cards>($"def={defense}");
-        return result?.data;
+        return result?.Data;
     }
-    
+
     public async Task<List<Card>?> GetCardsByLevelAsync(int level)
     {
         var result = await RestGET<Cards>($"level={level}");
-        return result?.data;
-    } 
+        return result?.Data;
+    }
 }
