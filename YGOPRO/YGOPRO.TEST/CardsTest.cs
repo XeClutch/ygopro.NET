@@ -168,7 +168,14 @@ public class Tests
     [Test]
     public async Task GetMultipleCardsByNameReturnsInvalidCards()
     {
-        var cardsByName = await _ygoClient.GetCardsByNameAsync("Random Card 1", "Random Card 2", "Random Card 3");
+
+        var cardNames = new[]
+        {
+            "Random Card 1",
+            "Random Card 2",
+            "Random Card 3"
+        };
+        var cardsByName = await _ygoClient.GetCardsByNameAsync(cardNames);
 
         Assert.IsNull(cardsByName);
     }
