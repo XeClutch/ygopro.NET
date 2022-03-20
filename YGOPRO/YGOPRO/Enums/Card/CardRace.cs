@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 namespace YGOPRO.Enums;
 
 [JsonConverter(typeof(StringEnumConverter))]
-public enum Race
+public enum CardRace
 {
     [EnumMember(Value = "Andrew")] Andrew,
     [EnumMember(Value = "Aqua")] Aqua,

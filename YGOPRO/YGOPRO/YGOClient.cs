@@ -62,18 +62,13 @@ public class YGOClient
         return result?.Data[0];
     }
 
-    public async Task<List<Card>?> GetCardsByNameAsync(params string[] names) =>
-        await GetCardsByNameAsync((IEnumerable<string>)names);
-
-    public async Task<List<Card>?> GetCardsByNameAsync(IEnumerable<string> names)
+    public async Task<List<Card>?> GetCardsByNameAsync(params string[] names)
     {
-        var enumerable = names as string[] ?? names.ToArray();
-        var url = enumerable.Length == 1 ? $"name={enumerable.First()}" : $"name={string.Join('|', enumerable)}";
-        var result = await RestGET<Cards>(url);
-
-        return result?.Data;
+         var url = names.Length == 1 ? $"name={names.First()}" : $"name={string.Join('|', names)}";
+         var result = await RestGET<Cards>(url);
+ 
+         return result?.Data;
     }
-
     public async Task<List<Card>?> GetCardByFuzzyNameSearchAsync(string name)
     {
         var result = await RestGET<Cards>($"fname={name}");
@@ -109,6 +104,22 @@ public class YGOClient
     public async Task<List<Card>?> GetCardsByLevelAsync(int level)
     {
         var result = await RestGET<Cards>($"level={level}");
+        return result?.Data;
+    }
+
+    public async Task<Card> GetCardByRaceAsync(CardRace race)
+    {
+        var cardRace = Enum.GetName(race)?.UnPascalCase();
+
+        var result = await RestGET<Cards>($"race={cardRace}");
+        return result?.Data[0];
+    }
+
+    public async Task<List<Card>?> GetCardsByRaceAsync(params CardRace[] races)
+    {
+        var url = races.Length == 1 ? $"race={races.First()}" : $"race={string.Join('|', races)}";
+        var result = await RestGET<Cards>(url);
+         
         return result?.Data;
     }
 }

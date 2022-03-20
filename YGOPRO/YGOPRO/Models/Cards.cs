@@ -25,7 +25,7 @@ public class Card
 
     [JsonProperty("level")] public int Level { get; private set; }
 
-    [JsonProperty("race")] public Race Race { get; private set; }
+    [JsonProperty("race")] public CardRace CardRace { get; private set; }
 
     [JsonProperty("attribute")] public CardAttribute? Attribute { get; private set; }
 
@@ -62,13 +62,13 @@ public class CardImage
 
 public class CardPrice
 {
-    [JsonProperty("cardmarket_price")] public double CardmarketPrice { get; private set; }
+    [JsonProperty("cardmarket_price")] public double CardMarketPrice { get; private set; }
 
     [JsonProperty("tcgplayer_price")] public double TCGplayerPrice { get; private set; }
 
     [JsonProperty("ebay_price")] public double EbayPrice { get; private set; }
 
-    [JsonProperty("amazon_price")] public double AmazongPrice { get; private set; }
+    [JsonProperty("amazon_price")] public double AmazonPrice { get; private set; }
 
     [JsonProperty("coolstuffinc_price")] public double CoolStuffIncPrice { get; private set; }
 }

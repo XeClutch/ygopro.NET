@@ -43,20 +43,20 @@ public class Tests
     [Test]
     public async Task GetMultipleCardsByNameReturnsValidCards()
     {
-        var cardNames = new List<string>
-        {
+        var cardNames = new[] {
             "A Rival Appears!",
             "Ancient Gear Factory",
             "Ancient Gear Drill",
             "Hydro Pressure Cannon",
             "Icejade Cradle"
         };
+        
 
         var cardsByName = await _ygoClient.GetCardsByNameAsync(cardNames);
 
         Assert.IsNotNull(cardsByName);
         Assert.IsNotEmpty(cardsByName!);
-        Assert.AreEqual(cardNames.Count, cardsByName!.Count);
+        Assert.AreEqual(cardNames.Length, cardsByName!.Count);
     }
 
     [Test]
@@ -168,16 +168,7 @@ public class Tests
     [Test]
     public async Task GetMultipleCardsByNameReturnsInvalidCards()
     {
-        var cardNames = new List<string>
-        {
-            "Random Card 1",
-            "Random Card 2",
-            "Random Card 3",
-            "Random Card 4",
-            "Random Card 5"
-        };
-
-        var cardsByName = await _ygoClient.GetCardsByNameAsync(cardNames);
+        var cardsByName = await _ygoClient.GetCardsByNameAsync("Random Card 1", "Random Card 2", "Random Card 3");
 
         Assert.IsNull(cardsByName);
     }
