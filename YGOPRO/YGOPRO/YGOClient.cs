@@ -107,19 +107,26 @@ public class YGOClient
         return result?.Data;
     }
 
-    public async Task<Card> GetCardByRaceAsync(CardRace race)
-    {
-        var cardRace = Enum.GetName(race)?.UnPascalCase();
-
-        var result = await RestGET<Cards>($"race={cardRace}");
-        return result?.Data[0];
-    }
-
     public async Task<List<Card>?> GetCardsByRaceAsync(params CardRace[] races)
     {
         var url = races.Length == 1 ? $"race={races.First()}" : $"race={string.Join('|', races)}";
         var result = await RestGET<Cards>(url);
          
+        return result?.Data;
+    }
+    
+    public async Task<List<Card>?> GetCardsByAttributeAsync(params CardAttribute[] attributes)
+    { 
+        var url = attributes.Length == 1 ? $"race={attributes.First()}" : $"race={string.Join('|', attributes)}"; 
+        var result = await RestGET<Cards>(url);
+             
+        return result?.Data;
+    }
+
+    public async Task<List<Card>?> GetCardsByLinkValueAsync(int linkValue)
+    {
+        var result = await RestGET<Cards>($"link={linkValue}");
+
         return result?.Data;
     }
 }
