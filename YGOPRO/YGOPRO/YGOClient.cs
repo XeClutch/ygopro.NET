@@ -129,4 +129,33 @@ public class YGOClient
 
         return result?.Data;
     }
+
+    public async Task<List<Card>?> GetCardsByByLinkMarkerAsync(params CardLinkMarker[] linkMarkers)
+    {
+        var url = linkMarkers.Length == 1 ? $"linkmarker={linkMarkers.First()}" : $"linkmarker={string.Join('|', linkMarkers)}"; 
+        var result = await RestGET<Cards>(url);
+                     
+        return result?.Data;
+    }
+
+    public async Task<List<Card>?> GetCardsByPendulumScaleAsync(int pendulumScale)
+    {
+        var result = await RestGET<Cards>($"scale={pendulumScale}");
+
+        return result?.Data;
+    }
+
+    public async Task<List<Card>?> GetCardsByArchetypeAsync(CardArchetype archetype)
+    {
+        var result = await RestGET<Cards>($"archetype={archetype}");
+
+        return result?.Data;
+    }
+
+    public async Task<List<Card>?> GetCardsByBanlistAsync(CardBanList banList)
+    {
+        var result = await RestGET<Cards>($"banlist={banList}");
+
+        return result?.Data;
+    }
 }

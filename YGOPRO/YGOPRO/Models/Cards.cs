@@ -30,6 +30,12 @@ public class Card
     [JsonProperty("attribute")] public CardAttribute? Attribute { get; private set; }
 
     [JsonProperty("archetype")] public CardArchetype? Archetype { get; private set; }
+    
+    [JsonProperty("linkval")] public int? LinkValue { get; private set; }
+    
+    [JsonProperty("linkmarkers")] public List<CardLinkMarker>? LinkMarkers { get; private set; }
+    
+    [JsonProperty("scale")] public int? PendulumScale { get; private set; }
 
     [JsonProperty("card_sets")] public List<CardSet>? CardSets { get; private set; }
 
