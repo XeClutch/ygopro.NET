@@ -162,12 +162,22 @@ public class YGOClient
         return result?.Data;
     }
 
+    public async Task<List<Card>?> GetCardsByFormatAsync(CardFormat format)
+    {
+        var stringFormat = Enum.GetName(format)?.UnPascalCase();
+
+        var result = await RestGET<Cards>($"format={stringFormat}");
+
+        return result?.Data;
+
+    }
+
     private static string[] EnumListToStrings<T>(IReadOnlyList<T> list) where T : struct, Enum
     {
         var toStrings = new string[list.Count];
         for (var i = 0; i < list.Count; i++)
         {
-            toStrings[i] = Enum.GetName(list[i]).UnPascalCase();
+            toStrings[i] = Enum.GetName(list[i])?.UnPascalCase();
         }
 
         return toStrings;
