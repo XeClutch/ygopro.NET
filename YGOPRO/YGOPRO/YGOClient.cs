@@ -109,15 +109,17 @@ public class YGOClient
 
     public async Task<List<Card>?> GetCardsByRaceAsync(params CardRace[] races)
     {
-        var url = races.Length == 1 ? $"race={races.First()}" : $"race={string.Join('|', races)}";
+        var stringRaces = EnumListToStrings(races);
+        var url = races.Length == 1 ? $"race={stringRaces.First()}" : $"race={string.Join(',', stringRaces)}";
         var result = await RestGET<Cards>(url);
          
         return result?.Data;
     }
     
     public async Task<List<Card>?> GetCardsByAttributeAsync(params CardAttribute[] attributes)
-    { 
-        var url = attributes.Length == 1 ? $"race={attributes.First()}" : $"race={string.Join('|', attributes)}"; 
+    {
+        var stringAttributes = EnumListToStrings(attributes);
+        var url = attributes.Length == 1 ? $"attribute={stringAttributes.First()}" : $"attribute={string.Join(',', stringAttributes)}"; 
         var result = await RestGET<Cards>(url);
              
         return result?.Data;
@@ -132,7 +134,8 @@ public class YGOClient
 
     public async Task<List<Card>?> GetCardsByByLinkMarkerAsync(params CardLinkMarker[] linkMarkers)
     {
-        var url = linkMarkers.Length == 1 ? $"linkmarker={linkMarkers.First()}" : $"linkmarker={string.Join('|', linkMarkers)}"; 
+        var stringMarkers = EnumListToStrings(linkMarkers);
+        var url = linkMarkers.Length == 1 ? $"linkmarker={linkMarkers.First()}" : $"linkmarker={string.Join(',', linkMarkers)}"; 
         var result = await RestGET<Cards>(url);
                      
         return result?.Data;
@@ -157,5 +160,16 @@ public class YGOClient
         var result = await RestGET<Cards>($"banlist={banList}");
 
         return result?.Data;
+    }
+
+    private static string[] EnumListToStrings<T>(IReadOnlyList<T> list) where T : struct, Enum
+    {
+        var toStrings = new string[list.Count];
+        for (var i = 0; i < list.Count; i++)
+        {
+            toStrings[i] = Enum.GetName(list[i]).UnPascalCase();
+        }
+
+        return toStrings;
     }
 }
