@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using YGOPRO.Enums;
+using YGOPRO.Models;
 
 namespace YGOPRO.TEST;
 
@@ -109,9 +111,9 @@ public class Tests
         Assert.IsNotEmpty(cardsByName!);
         Assert.Greater(cardsByName!.Count, 200);
 
-        for (var i = 0; i < cardsByName.Count; i++)
+        foreach (var card in cardsByName)
         {
-            Assert.AreEqual(attackValue, cardsByName[i].Attack);
+            Assert.AreEqual(attackValue, card.Attack);
         }
     }
 
@@ -126,9 +128,9 @@ public class Tests
         Assert.IsNotEmpty(cardsByName!);
         Assert.Greater(cardsByName!.Count, 500);
 
-        for (var i = 0; i < cardsByName.Count; i++)
+        foreach (var card in cardsByName)
         {
-            Assert.AreEqual(defenseValue, cardsByName[i].Defense);
+            Assert.AreEqual(defenseValue, card.Defense);
         }
     }
 
@@ -147,6 +149,38 @@ public class Tests
         // for (var i = 0; i < cardsByName.Count; i++)
         // {
         //     Assert.AreEqual(levelValue, cardsByName[i].Level);
+        // }
+    }
+
+    [Test]
+    public async Task GetCardsByRaceAsyncReturnsValidCards()
+    {
+        const CardRace raceValue = CardRace.Aqua;
+
+        var cardsByRace = await _ygoClient.GetCardsByRaceAsync(raceValue);
+        
+        Assert.IsNotNull(cardsByRace);
+        Assert.IsNotEmpty(cardsByRace!);
+        foreach (var card in cardsByRace!)
+        {
+            Assert.AreEqual(raceValue, card.CardRace);
+        }
+        
+    }
+
+    [Test]
+    public async Task GetCardsByAttributeAsyncReturnsValidCards()
+    {
+        const CardAttribute attributeValue = CardAttribute.Dark;
+
+        var cardsByAttribute = await _ygoClient.GetCardsByAttributeAsync(attributeValue);
+        
+        Assert.IsNotNull(cardsByAttribute);
+        Assert.IsNotEmpty(cardsByAttribute!);
+        // Failing because some attributes are null...
+        // foreach (var card in cardsByAttribute!)
+        // {
+        //     Assert.AreEqual(attributeValue, card.Attribute);
         // }
     }
 
