@@ -102,6 +102,8 @@ public class BanlistInfo
 
 public class MiscInfo
 {
+    [JsonProperty("beta_name")] public string? BetaName { get; private set; }
+    
     [JsonProperty("views")] public int TotalViews { get; private set; }
     
     [JsonProperty("viewsweek")] public int ViewsThisWeek { get; private set; }
