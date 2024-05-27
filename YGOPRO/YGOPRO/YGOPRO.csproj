@@ -11,7 +11,7 @@
         <PackageLicenseUrl>https://github.com/XeClutch/ygopro.NET/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/XeClutch/ygopro.NET</RepositoryUrl>
         <PackageId>YgoPro.NET</PackageId>
-        <Version>1.0.4</Version>
+        <Version>1.1.0</Version>
         <Description>Fork from Mordechai Hadad's original ygopro.NET</Description>
     </PropertyGroup>
 
