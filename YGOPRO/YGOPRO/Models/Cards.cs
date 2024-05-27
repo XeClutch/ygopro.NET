@@ -36,6 +36,8 @@ public class Card
     [JsonProperty("card_images")] public List<CardImage> CardImages { get; private set; }
 
     [JsonProperty("card_prices")] public List<CardPrice> CardPrices { get; private set; }
+    
+    [JsonProperty("misc_info")] public List<MiscInfo> MiscellaneousInfo { get; private set; }
 }
 
 public class CardSet
@@ -71,4 +73,25 @@ public class CardPrice
     [JsonProperty("amazon_price")] public double AmazongPrice { get; private set; }
 
     [JsonProperty("coolstuffinc_price")] public double CoolStuffIncPrice { get; private set; }
+}
+
+public class MiscInfo
+{
+    [JsonProperty("views")] public int TotalViews { get; private set; }
+    
+    [JsonProperty("viewsweek")] public int ViewsThisWeek { get; private set; }
+    
+    [JsonProperty("upvotes")] public int Upvotes { get; private set; }
+    
+    [JsonProperty("downvotes")] public int Downvotes { get; private set; }
+    
+    [JsonProperty("formats")] public List<string> Formats { get; private set; }
+    
+    [JsonProperty("tcg_date")] public string ReleaseDateTCG { get; private set; }
+    
+    [JsonProperty("ocg_date")] public string ReleaseDateOCG { get; private set; }
+    
+    [JsonProperty("konami_id")] public int KonamiId { get; private set; }
+    
+    [JsonProperty("has_effect")] public int HasEffect { get; private set; }
 }
