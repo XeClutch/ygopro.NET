@@ -4,6 +4,15 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>YgoPro.NET</Title>
+        <Authors>Mordechai Hadad, Joshua Ozeri</Authors>
+        <PackageProjectUrl></PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/XeClutch/ygopro.NET/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/XeClutch/ygopro.NET</RepositoryUrl>
+        <PackageId>YgoPro.NET</PackageId>
+        <Version>1.0.3</Version>
+        <Description>Fork from Mordechai Hadad's original ygopro.NET</Description>
     </PropertyGroup>
 
     <ItemGroup>
