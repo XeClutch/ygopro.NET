@@ -25,13 +25,13 @@ public class Card
     
     [JsonProperty("monster_desc")] public string? MonsterEffect { get; private set; }
 
-    [JsonProperty("atk")] public int Attack { get; private set; }
+    [JsonProperty("atk")] public int? Attack { get; private set; }
 
-    [JsonProperty("def")] public int Defense { get; private set; }
+    [JsonProperty("def")] public int? Defense { get; private set; }
 
-    [JsonProperty("level")] public int Level { get; private set; }
+    [JsonProperty("level")] public int? Level { get; private set; }
 
-    [JsonProperty("race")] public string Race { get; private set; }
+    [JsonProperty("race")] public string? Race { get; private set; }
 
     [JsonProperty("attribute")] public string? Attribute { get; private set; }
     
@@ -53,7 +53,7 @@ public class Card
 
     [JsonProperty("card_prices")] public List<CardPrice> CardPrices { get; private set; }
     
-    [JsonProperty("misc_info")] public List<MiscInfo> MiscellaneousInfo { get; private set; }
+    [JsonProperty("misc_info")] public List<MiscInfo>? MiscellaneousInfo { get; private set; }
 }
 
 public class CardSet
@@ -71,11 +71,13 @@ public class CardSet
 
 public class CardImage
 {
-    [JsonProperty("id")] public int Id { get; private set; }
+    [JsonProperty("id")] public int? Id { get; private set; }
 
-    [JsonProperty("image_url")] public string ImageUrl { get; private set; }
+    [JsonProperty("image_url")] public string? ImageUrl { get; private set; }
 
-    [JsonProperty("image_url_small")] public string ImageUrlSmall { get; private set; }
+    [JsonProperty("image_url_small")] public string? ImageUrlSmall { get; private set; }
+
+    [JsonProperty("image_url_cropped")] public string? ImageUrlCropped { get; private set; }
 }
 
 public class CardPrice
@@ -102,6 +104,8 @@ public class BanlistInfo
 
 public class MiscInfo
 {
+    [JsonProperty("beta_id")] public int? BetaId { get; private set; }
+    
     [JsonProperty("beta_name")] public string? BetaName { get; private set; }
     
     [JsonProperty("views")] public int TotalViews { get; private set; }
@@ -114,9 +118,9 @@ public class MiscInfo
     
     [JsonProperty("formats")] public List<string> Formats { get; private set; }
     
-    [JsonProperty("tcg_date")] public string ReleaseDateTCG { get; private set; }
+    [JsonProperty("tcg_date")] public string? ReleaseDateTCG { get; private set; }
     
-    [JsonProperty("ocg_date")] public string ReleaseDateOCG { get; private set; }
+    [JsonProperty("ocg_date")] public string? ReleaseDateOCG { get; private set; }
     
     [JsonProperty("konami_id")] public int KonamiId { get; private set; }
     
