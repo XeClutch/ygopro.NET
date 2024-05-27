@@ -38,6 +38,8 @@ public class Card
     [JsonProperty("archetype")] public string? Archetype { get; private set; }
     
     [JsonProperty("banlist_info")] public BanlistInfo? BanlistInfo { get; private set; }
+    
+    [JsonProperty("ygoprodeck_url")] public string? YgoProDeckUrl { get; private set; }
 
     [JsonProperty("card_sets")] public List<CardSet>? CardSets { get; private set; }
 
