@@ -1,8 +1,13 @@
-# YGOPRO.NET
+# YgoPro.NET
 
-YGOPRO.NET is an API Wrapper for the [YGOPRODECK API](https://db.ygoprodeck.com/api-guide/)
+YgoPro.NET is an API Wrapper for the [YGOPRODECK API](https://db.ygoprodeck.com/api-guide/).
+
+Support the free API by [purchasing a subscription](https://ygoprodeck.com/premium/).
 
 ## :wrench: Installation
+### NuGet
+`dotnet add package YgoPro.NET`
+
 ### Install from source
 1. `git clone https://github.com/MordechaiHadad/ygopro.NET.git` in your root directory
 2. add this line to your App.csproj
@@ -11,8 +16,6 @@ YGOPRO.NET is an API Wrapper for the [YGOPRODECK API](https://db.ygoprodeck.com/
     <ProjectReference Include="..\YGOPRO\YGOPRO.csproj" />
 </ItemGroup>
 ```
-
-NuGet will come soon
 
 ## :question: Usage
 ### Initialize the client
@@ -30,32 +33,29 @@ var client = new YGOClient(Language.German);
 ```
 
 ### Get all cards
+This may take a while as the response from the API is not paginated and all cards in the ygoprodeck database will be returned.
+It's recommended that you make this call once and cache it locally.
 ```c#
 var cards = await client.GetAllCardsAsync();
-
-// Get Dark Magician
-
-if (cards != null)
-{
-    var card = cards.FirstOrDefault(x => x.Name == "Dark Magician");
-    
-    Console.WriteLine($"Name: {card?.Name}");    
-    Console.WriteLine($"Attack: {card?.Attack}, Defense: {card?.Defense}");    
-}
 ```
 
 ### Get specific card by name
+Make sure that if you're only looking for a particular card that you use the appropriate methods. YGOPRODECK is a free community run API primarily paid for by donations.
+Making unnecessarily heavy calls increases their server costs and can lead to you IP address being blacklisted.
 ```c#
-var card = await client.GetCardByNameAsync("Dark Magician");
+// do this:
+var ygoDarkMagician = await client.GetCardByNameAsync("Dark Magician");
 
-Console.WriteLine($"Name: {card?.Name}");    
-Console.WriteLine($"Attack: {card?.Attack}, Defense: {card?.Defense}"); 
-
-// The equivalent of this but client side
+// not this:
 var cards = await client.GetAllCardsAsync();
-
-if (cards != null)
-{
-    var card = cards.FirstOrDefault(x => x.Name == "Dark Magician");
+if (cards?.Count > 0) {
+    var ygoDarkMagician = cards.FirstOrDefault(x => x.Name.ToLower() == "dark magician");
 }
+```
+
+### Get all sets
+Unfortunately the ygoprodeck API only supports returning all sets and are unable to query the API for a specific set.
+It's recommended that you make this call once and cache it locally.
+```c#
+var sets = await client.GetAllSetsAsync();
 ```
