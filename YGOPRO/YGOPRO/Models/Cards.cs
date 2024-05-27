@@ -36,6 +36,8 @@ public class Card
     [JsonProperty("linkmarkers")] public List<string>? LinkMarkers { get; private set; }
 
     [JsonProperty("archetype")] public string? Archetype { get; private set; }
+    
+    [JsonProperty("banlist_info")] public BanlistInfo? BanlistInfo { get; private set; }
 
     [JsonProperty("card_sets")] public List<CardSet>? CardSets { get; private set; }
 
@@ -79,6 +81,15 @@ public class CardPrice
     [JsonProperty("amazon_price")] public double AmazongPrice { get; private set; }
 
     [JsonProperty("coolstuffinc_price")] public double CoolStuffIncPrice { get; private set; }
+}
+
+public class BanlistInfo
+{
+    [JsonProperty("ban_tcg")] public string? StatusTCG { get; private set; }
+    
+    [JsonProperty("ban_ocg")] public string? StatusOCG { get; private set; }
+    
+    [JsonProperty("ban_goat")] public string? StatusGoat { get; private set; }
 }
 
 public class MiscInfo
