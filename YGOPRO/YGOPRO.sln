@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGOPRO", "YGOPRO\YGOPRO.csproj", "{D55A1C3A-4488-4CD3-BB03-A2CE33B34253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGOPRO.TEST", "YGOPRO.TEST\YGOPRO.TEST.csproj", "{F0E5713B-5B64-4703-B7C6-5B3E7F6C4E1E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,9 +16,5 @@ Global
 		{FD1E17E2-40BB-478D-8272-4A4DDD11E71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1E17E2-40BB-478D-8272-4A4DDD11E71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1E17E2-40BB-478D-8272-4A4DDD11E71E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0E5713B-5B64-4703-B7C6-5B3E7F6C4E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0E5713B-5B64-4703-B7C6-5B3E7F6C4E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0E5713B-5B64-4703-B7C6-5B3E7F6C4E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0E5713B-5B64-4703-B7C6-5B3E7F6C4E1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

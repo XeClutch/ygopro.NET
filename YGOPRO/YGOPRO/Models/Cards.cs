@@ -15,7 +15,7 @@ public class Card
 
     [JsonProperty("name")] public string Name { get; private set; }
 
-    [JsonProperty("type")] public CardType Type { get; private set; }
+    [JsonProperty("type")] public string Type { get; private set; }
 
     [JsonProperty("desc")] public string Description { get; private set; }
 
@@ -25,11 +25,11 @@ public class Card
 
     [JsonProperty("level")] public int Level { get; private set; }
 
-    [JsonProperty("race")] public Race Race { get; private set; }
+    [JsonProperty("race")] public string Race { get; private set; }
 
-    [JsonProperty("attribute")] public CardAttribute? Attribute { get; private set; }
+    [JsonProperty("attribute")] public string? Attribute { get; private set; }
 
-    [JsonProperty("archetype")] public CardArchetype? Archetype { get; private set; }
+    [JsonProperty("archetype")] public string? Archetype { get; private set; }
 
     [JsonProperty("card_sets")] public List<CardSet>? CardSets { get; private set; }
 
@@ -46,7 +46,7 @@ public class CardSet
 
     [JsonProperty("set_code")] public string SetCode { get; private set; }
 
-    [JsonProperty("set_rarity")] public CardSetRarity SetRarity { get; private set; }
+    [JsonProperty("set_rarity")] public string SetRarity { get; private set; }
 
     [JsonProperty("set_rarity_code")] public string SetRarityCode { get; private set; }
 

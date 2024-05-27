@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using YGOPRO.Enums;
-using YGOPRO.Extensions;
 using YGOPRO.Models;
 
 namespace YGOPRO;
@@ -86,11 +85,9 @@ public class YGOClient
         return result?.Data?[0];
     }
 
-    public async Task<List<Card>?> GetCardsByTypeAsync(CardType cardType, bool misc = false)
+    public async Task<List<Card>?> GetCardsByTypeAsync(string cardType, bool misc = false)
     {
-        var cardName = Enum.GetName(cardType)?.UnPascalCase();
-
-        var result = await RestGET<Cards>($"type={cardName}", misc);
+        var result = await RestGET<Cards>($"type={cardType}", misc);
         return result?.Data;
     }
 
