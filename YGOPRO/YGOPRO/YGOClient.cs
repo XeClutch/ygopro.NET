@@ -36,11 +36,11 @@ public class YGOClient
         _client.Dispose();
     }
 
-    private async Task<T?> RestGET<T>(string? url = null) where T : class
+    private async Task<T?> RestGET<T>(string? url = null, bool misc = false) where T : class
     {
-        var baseurl = string.IsNullOrEmpty(_language)
-            ? BaseUrl + ApiVersion + CardInfo + "?"
-            : $"{BaseUrl}{ApiVersion}{CardInfo}?language={_language}";
+        var baseurl = $"{BaseUrl}{ApiVersion}{CardInfo}?";
+        if (!string.IsNullOrWhiteSpace(_language)) baseurl += $"{_language}&";
+        if (misc) baseurl += "misc=yes&";
 
         baseurl = url != null ? $"{baseurl}&{url}" : baseurl;
         var result = await _client.GetAsync(baseurl);
@@ -50,65 +50,65 @@ public class YGOClient
         return JsonConvert.DeserializeObject<T>(response);
     }
 
-    public async Task<List<Card>?> GetAllCardsAsync()
+    public async Task<List<Card>?> GetAllCardsAsync(bool misc = false)
     {
-        var result = await RestGET<Cards>();
+        var result = await RestGET<Cards>(misc: misc);
         return result?.Data;
     }
 
-    public async Task<Card> GetCardByNameAsync(string name)
+    public async Task<Card> GetCardByNameAsync(string name, bool misc = false)
     {
-        var result = await RestGET<Cards>($"name={name}");
+        var result = await RestGET<Cards>($"name={name}", misc);
         return result?.Data[0];
     }
 
     public async Task<List<Card>?> GetCardsByNameAsync(params string[] names) =>
         await GetCardsByNameAsync((IEnumerable<string>)names);
 
-    public async Task<List<Card>?> GetCardsByNameAsync(IEnumerable<string> names)
+    public async Task<List<Card>?> GetCardsByNameAsync(IEnumerable<string> names, bool misc = false)
     {
         var enumerable = names as string[] ?? names.ToArray();
         var url = enumerable.Length == 1 ? $"name={enumerable.First()}" : $"name={string.Join('|', enumerable)}";
-        var result = await RestGET<Cards>(url);
+        var result = await RestGET<Cards>(url, misc);
 
         return result?.Data;
     }
 
-    public async Task<List<Card>?> GetCardByFuzzyNameSearchAsync(string name)
+    public async Task<List<Card>?> GetCardByFuzzyNameSearchAsync(string name, bool misc = false)
     {
-        var result = await RestGET<Cards>($"fname={name}");
+        var result = await RestGET<Cards>($"fname={name}", misc);
         return result?.Data;
     }
 
-    public async Task<Card?> GetCardByIdAsync(int id)
+    public async Task<Card?> GetCardByIdAsync(int id, bool misc = false)
     {
-        var result = await RestGET<Cards>($"id={id}");
+        var result = await RestGET<Cards>($"id={id}", misc);
         return result?.Data?[0];
     }
 
-    public async Task<List<Card>?> GetCardsByTypeAsync(CardType cardType)
+    public async Task<List<Card>?> GetCardsByTypeAsync(CardType cardType, bool misc = false)
     {
         var cardName = Enum.GetName(cardType)?.UnPascalCase();
 
-        var result = await RestGET<Cards>($"type={cardName}");
+        var result = await RestGET<Cards>($"type={cardName}", misc);
         return result?.Data;
     }
 
-    public async Task<List<Card>?> GetCardsByAttackAsync(int attack)
+    public async Task<List<Card>?> GetCardsByAttackAsync(int attack, bool misc = false)
     {
-        var result = await RestGET<Cards>($"atk={attack}");
+        var result = await RestGET<Cards>($"atk={attack}", misc);
         return result?.Data;
     }
 
-    public async Task<List<Card>?> GetCardsByDefenseAsync(int defense)
+    public async Task<List<Card>?> GetCardsByDefenseAsync(int defense, bool misc = false)
     {
-        var result = await RestGET<Cards>($"def={defense}");
+        var result = await RestGET<Cards>($"def={defense}", misc);
         return result?.Data;
     }
 
-    public async Task<List<Card>?> GetCardsByLevelAsync(int level)
+    public async Task<List<Card>?> GetCardsByLevelAsync(int level, bool misc = false)
     {
-        var result = await RestGET<Cards>($"level={level}");
+        var result = await RestGET<Cards>($"level={level}", misc);
         return result?.Data;
     }
 }
