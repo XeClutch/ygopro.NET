@@ -16,6 +16,8 @@ public class Card
     [JsonProperty("name")] public string Name { get; private set; }
 
     [JsonProperty("type")] public string Type { get; private set; }
+    
+    [JsonProperty("frameType")] public string FrameType { get; private set; }
 
     [JsonProperty("desc")] public string Description { get; private set; }
 
