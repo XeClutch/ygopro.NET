@@ -20,6 +20,10 @@ public class Card
     [JsonProperty("frameType")] public string FrameType { get; private set; }
 
     [JsonProperty("desc")] public string Description { get; private set; }
+    
+    [JsonProperty("pend_desc")] public string? PendulumEffect { get; private set; }
+    
+    [JsonProperty("monster_desc")] public string? MonsterEffect { get; private set; }
 
     [JsonProperty("atk")] public int Attack { get; private set; }
 
@@ -38,6 +42,8 @@ public class Card
     [JsonProperty("archetype")] public string? Archetype { get; private set; }
     
     [JsonProperty("banlist_info")] public BanlistInfo? BanlistInfo { get; private set; }
+    
+    [JsonProperty("scale")] public int? Scale { get; private set; }
     
     [JsonProperty("ygoprodeck_url")] public string? YgoProDeckUrl { get; private set; }
 
