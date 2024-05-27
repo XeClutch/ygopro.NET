@@ -30,6 +30,10 @@ public class Card
     [JsonProperty("race")] public string Race { get; private set; }
 
     [JsonProperty("attribute")] public string? Attribute { get; private set; }
+    
+    [JsonProperty("linkval")] public int? LinkValue { get; private set; }
+    
+    [JsonProperty("linkmarkers")] public List<string>? LinkMarkers { get; private set; }
 
     [JsonProperty("archetype")] public string? Archetype { get; private set; }
 
