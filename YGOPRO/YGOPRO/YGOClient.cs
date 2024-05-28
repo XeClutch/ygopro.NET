@@ -119,6 +119,11 @@ public class YGOClient
         return result?.Data;
     }
 
+    public async Task<Card?> GetCardByKonamiIdAsync(int konamiId, bool misc = false) {
+        var result = await GetCardInfoAsync<Cards>($"konami_id={konamiId}", misc);
+        return result?.Data[0];
+    }
+
     public async Task<List<CardSet>> GetAllSetsAsync()
     {
         var result = await GetSetInfoAsync<Sets>();
