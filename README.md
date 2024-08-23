@@ -1,4 +1,4 @@
-# YgoPro.NET <a href="https://www.nuget.org/packages/YgoPro.NET"><img alt="NuGet" src="https://badgen.net/badge/YgoPro.NET/v1.2.1/blue?icon=nuget"/></a>
+# YgoPro.NET <a href="https://www.nuget.org/packages/YgoPro.NET"><img alt="NuGet" src="https://img.shields.io/nuget/v/YgoPro.NET?label=YgoPro.NET"/> <img alt="NuGet Downloads" src="https://img.shields.io/nuget/dt/YgoPro.NET.svg?color=blue"/></a></a>
 
 YgoPro.NET is an API Wrapper for the [YGOPRODECK API](https://db.ygoprodeck.com/api-guide/).
 
